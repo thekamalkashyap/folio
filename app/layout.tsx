@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={[inter.variable, GeistSans.variable].join(" ")}>
-      <body className="bg-black">{children}</body>
+      <body className="bg-white">{children}</body>
     </html>
   );
 }
