@@ -1,6 +1,5 @@
 import Particles from "@/components/particles";
 import Spotlight from "@/components/spotlight";
-import Link from "next/link";
 import LinkPreview from "@/components/linkPreview";
 
 const navigation = [

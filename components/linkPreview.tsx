@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
+import dynamic from "next/dynamic";
 
 type LinkPreviewProps = {
   children: React.ReactNode;
@@ -39,7 +40,7 @@ const LinkPreview = ({
   let src;
   if (!isStatic) {
     const params = encode({
-      url,
+      url: url.startsWith("/") ? window.location.origin + url : url,
       screenshot: true,
       meta: false,
       embed: "screenshot.url",
@@ -137,7 +138,7 @@ const LinkPreview = ({
                   style={{ fontSize: 0 }}
                 >
                   <Image
-                    src={isStatic ? imageSrc : src}
+                    src={src}
                     width={width}
                     height={height}
                     quality={quality}
@@ -156,4 +157,6 @@ const LinkPreview = ({
   );
 };
 
-export default LinkPreview;
+export default dynamic(() => Promise.resolve(LinkPreview), {
+  ssr: false,
+});

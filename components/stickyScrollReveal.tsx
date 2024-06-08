@@ -2,21 +2,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
-import { cn } from "@/utils/cn";
-import TracingBeam from "./tracingBeam";
+import Image from "next/image";
+import { encode } from "qss";
 
 const StickyScroll = ({
   content,
-  contentClassName,
 }: {
   content: {
     title: string;
     description: string;
-    content?: React.ReactNode | any;
+    imageSrc: string;
   }[];
-  contentClassName?: string;
 }) => {
-  const [activeCard, setActiveCard] = React.useState(0);
+  const [activeCard, setActiveCard] = useState(0);
+  const [src, setSrc] = React.useState("");
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     // uncomment line 22 and comment line 23 if you DONT want the overflow container and want to have it change on the entire page scroll
@@ -25,6 +24,27 @@ const StickyScroll = ({
     offset: ["start start", "end start"],
   });
   const cardLength = content.length;
+
+  useEffect(() => {
+    let src;
+    if (!content[activeCard].imageSrc.startsWith("/")) {
+      const params = encode({
+        url: content[activeCard].imageSrc,
+        screenshot: true,
+        meta: false,
+        embed: "screenshot.url",
+        colorScheme: "dark",
+        "viewport.isMobile": true,
+        "viewport.deviceScaleFactor": 1,
+        "viewport.width": 200 * 3,
+        "viewport.height": 125 * 3,
+      });
+      src = `https://api.microlink.io/?${params}`;
+    } else {
+      src = content[activeCard].imageSrc;
+    }
+    setSrc(src);
+  }, [activeCard]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const cardsBreakpoints = content.map((_, index) => index / cardLength);
@@ -40,20 +60,6 @@ const StickyScroll = ({
     );
     setActiveCard(closestBreakpointIndex);
   });
-
-  const linearGradients = [
-    "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
-    "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
-    "linear-gradient(to bottom right, var(--orange-500), var(--yellow-500))",
-  ];
-
-  const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0]
-  );
-
-  useEffect(() => {
-    setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
-  }, [activeCard]);
 
   return (
     <div className="h-screen flex items-center">
@@ -95,14 +101,17 @@ const StickyScroll = ({
             <div className="h-40" />
           </div>
         </div>
-        <div
-          style={{ background: backgroundGradient }}
-          className={cn(
-            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
-            contentClassName
-          )}
-        >
-          {content[activeCard].content ?? null}
+        <div className="hidden lg:block h-60 w-80 rounded-md sticky top-10 overflow-hidden">
+          <div className="h-full w-full flex items-center justify-center text-black">
+            <Image
+              src={src}
+              width={600}
+              height={375}
+              priority={true}
+              className="w-full object-contain rounded-md"
+              alt="website screenshot"
+            />
+          </div>
         </div>
       </motion.div>
     </div>
