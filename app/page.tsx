@@ -3,8 +3,8 @@ import Spotlight from "@/components/spotlight";
 import LinkPreview from "@/components/linkPreview";
 
 const navigation = [
-  { name: "Projects", href: "/projects" },
-  { name: "Contact", href: "/contact" },
+  { name: "Projects", href: "/projects", imageSrc: "/projects-preview.png" },
+  { name: "Contact", href: "/contact", imageSrc: "/contact-preview.png" },
 ];
 
 export default function Home() {
@@ -16,6 +16,8 @@ export default function Home() {
             <LinkPreview
               key={item.href}
               url={item.href}
+              isStatic
+              imageSrc={item.imageSrc}
               className="text-sm duration-500 text-zinc-500 hover:text-zinc-700"
             >
               <button className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md bg-[linear-gradient(45deg,#dcdcde,45%,#c4c4ef,55%,#dcdcde)] bg-[length:200%_100%] px-6 font-medium transition-colors focus:outline-none">
