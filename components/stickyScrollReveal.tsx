@@ -4,6 +4,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { encode } from "qss";
+import Link from "next/link";
 
 const StickyScroll = ({
   content,
@@ -11,43 +12,23 @@ const StickyScroll = ({
   content: {
     title: string;
     description: string;
-    imageSrc: string;
+    imageSrc?: string;
+    url: string;
   }[];
 }) => {
   const [activeCard, setActiveCard] = useState(0);
   const [src, setSrc] = React.useState("");
   const ref = useRef<any>(null);
-  const { scrollYProgress } = useScroll({
-    // uncomment line 22 and comment line 23 if you DONT want the overflow container and want to have it change on the entire page scroll
-    // target: ref
-    container: ref,
-    offset: ["start start", "end start"],
-  });
-  const cardLength = content.length;
 
-  useEffect(() => {
-    let src;
-    if (!content[activeCard].imageSrc.startsWith("/")) {
-      const params = encode({
-        url: content[activeCard].imageSrc,
-        screenshot: true,
-        meta: false,
-        embed: "screenshot.url",
-        colorScheme: "dark",
-        "viewport.isMobile": true,
-        "viewport.deviceScaleFactor": 1,
-        "viewport.width": 200 * 3,
-        "viewport.height": 125 * 3,
-      });
-      src = `https://api.microlink.io/?${params}`;
-    } else {
-      src = content[activeCard].imageSrc;
-    }
-    setSrc(src);
-  }, [activeCard]);
+  const { scrollYProgress } = useScroll({
+    container: ref,
+    offset: ["start", "end center"],
+  });
+
+  const cardLength = content.length;
+  const cardsBreakpoints = content.map((_, index) => index / cardLength);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = content.map((_, index) => index / cardLength);
     const closestBreakpointIndex = cardsBreakpoints.reduce(
       (acc, breakpoint, index) => {
         const distance = Math.abs(latest - breakpoint);
@@ -60,6 +41,27 @@ const StickyScroll = ({
     );
     setActiveCard(closestBreakpointIndex);
   });
+
+  useEffect(() => {
+    let src;
+    if (typeof content[activeCard].imageSrc != "undefined") {
+      src = content[activeCard].imageSrc ?? "";
+    } else {
+      const params = encode({
+        url: content[activeCard].url,
+        screenshot: true,
+        meta: false,
+        embed: "screenshot.url",
+        colorScheme: "dark",
+        "viewport.isMobile": true,
+        "viewport.deviceScaleFactor": 1,
+        "viewport.width": 200 * 3,
+        "viewport.height": 125 * 3,
+      });
+      src = `https://api.microlink.io/?${params}`;
+    }
+    setSrc(src);
+  }, [activeCard]);
 
   return (
     <div className="h-screen flex items-center">
@@ -83,7 +85,9 @@ const StickyScroll = ({
                   }}
                   className="text-2xl font-display font-bold text-slate-900"
                 >
-                  {item.title}
+                  <Link className="hover:underline" href={item.url}>
+                    {item.title}
+                  </Link>
                 </motion.h2>
                 <motion.p
                   initial={{
@@ -101,16 +105,18 @@ const StickyScroll = ({
             <div className="h-40" />
           </div>
         </div>
-        <div className="hidden lg:block h-60 w-80 rounded-md sticky top-10 overflow-hidden">
-          <div className="h-full w-full flex items-center justify-center text-black">
-            <Image
-              src={src}
-              width={600}
-              height={375}
-              priority={true}
-              className="w-full object-contain rounded-md"
-              alt="website screenshot"
-            />
+        <div className="hidden lg:flex items-center rounded-md sticky inset-0 overflow-hidden">
+          <div className="h-60 w-80 flex items-center justify-center text-black">
+            <Link href={content[activeCard].url}>
+              <Image
+                src={src}
+                width={600}
+                height={375}
+                priority={true}
+                className="w-full object-contain rounded-md"
+                alt="website screenshot"
+              />
+            </Link>
           </div>
         </div>
       </motion.div>

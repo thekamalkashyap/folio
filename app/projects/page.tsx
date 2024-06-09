@@ -1,32 +1,61 @@
 "use client";
 import React from "react";
 import StickyScroll from "@/components/stickyScrollReveal";
-import Image from "next/image";
 
 const content = [
   {
-    title: "Collaborative Editing",
+    title: "The Xiting Way",
     description:
-      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
-    imageSrc: "https://ui.aceternity.com/",
+      "Welcome to The Xiting Way, where our passion lies in driving technology forward in the 21st century. Our mission is to infuse excitement into every aspect of technology, achieved through our innovative and creative software solutions that excites the world.",
+    url: "https://www.thexitingway.com/",
   },
   {
-    title: "Real time changes",
+    title: "Mrotion",
     description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
-    imageSrc: "https://www.cult-ui.com/",
+      "Mrotion is a service and branding studio dedicated to creating innovative digital products and services for the world's leading brands. Our mission is to assist these brands in crafting their dreams.",
+    url: "https://mrotion.com/",
   },
   {
-    title: "Version control",
+    title: "DevXClub",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-    imageSrc: "https://ui.shadcn.com/",
+      "Turn your ideas into reality by joining a vibrant community of developers and designers. Here, you can collaborate, learn, build, and grow together, transforming your creative visions into tangible achievements.",
+    url: "https://devxclub.vercel.app/",
   },
   {
-    title: "Running out of content",
+    title: "create-devx",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-    imageSrc: "https://tailwindcss.com/",
+      "With ‘𝐧𝐩𝐱 𝐜𝐫𝐞𝐚𝐭𝐞-𝐝𝐞𝐯𝐱’, you can jumpstart your next project in a flash. Whether you're a seasoned pro or just starting out, our tool takes care of all the heavy lifting, setting up everything you need from logger to file compression and beyond!",
+    url: "https://www.npmjs.com/package/create-devx",
+  },
+  {
+    title: "Techipedia",
+    description:
+      "This is a Next.js, Tailwind CSS blogging starter template. Comes out of the box configured with the latest technologies to make technical writing a breeze. Easily configurable and customizable. Perfect as a replacement to existing Jekyll and Hugo individual blogs. ",
+    url: "https://techipedia.vercel.app/",
+  },
+  {
+    title: "Bookverse",
+    description:
+      "Bookverse is an innovative platform designed for book lovers to connect, share their thoughts, and review the books they've read. It's a vibrant community where you can discover new books, delve into insightful reviews, and contribute your own perspectives.",
+    url: "https://bookvrc.vercel.app/",
+  },
+  {
+    title: "ytsr",
+    description:
+      "ytsr is a command-line tool to search and play youtube videos directly from the terminal. Search youtube for anything from the comfort of your terminal with this perl script. It uses invidious instance to fetch youtube search results.",
+    url: "https://github.com/thekamalkashyap/ytsr/blob/main/ytsr",
+  },
+  {
+    title: "Threejs game",
+    description:
+      "A Three.js game where you can control a sphere. The game is built using Three.js and rapier.js for physics to understand how physics works in Three.js. It Provides an engaging way to understand and experiment with physics concepts in a 3D space.",
+    url: "https://react-three-physics.vercel.app/",
+  },
+  {
+    title: "rddt",
+    description:
+      "A shell script to scrape reddit posts from a subreddit and display them in a terminal. It uses the reddit API to fetch posts from a subreddit and displays them in a terminal. It convert image to ascii (sixel) display it in terminal.",
+    url: "https://github.com/thekamalkashyap/rddt/blob/main/rddt",
   },
 ];
 

@@ -1,4 +1,4 @@
-import { MailIcon, PhoneIcon, GitCommit, LinkedinIcon } from "lucide-react";
+import { MailIcon, PhoneIcon, LinkedinIcon } from "lucide-react";
 import LinkPreview from "@/components/linkPreview";
 import { GitHubIcon } from "@/components/icons";
 
@@ -9,11 +9,13 @@ const contact = {
     {
       name: "GitHub",
       url: "https://github.com/thekamalkashyap",
+      imageSrc: "/github-preview.png",
       icon: GitHubIcon,
     },
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/thekamalkashyap",
+      imageSrc: "/linkedin-preview.png",
       icon: LinkedinIcon,
     },
   ],
@@ -31,31 +33,46 @@ export default function Contact() {
           /krɪˈeɪtɪv/ - relating to or involving the use of the imagination{" "}
           <br /> or original ideas to create something.
         </div>
-        <div className="flex gap-x-10 mt-10 font-mono text-sm">
-          {contact.email ? (
-            <button className="size-24 border-2 border-black rounded-md flex justify-center items-center">
-              <a href={`mailto:${contact.email}`}>
-                <MailIcon className="size-12" />
-              </a>
-            </button>
-          ) : null}
-          {contact.tel ? (
-            <button className="size-24 border-2 border-black rounded-md flex justify-center items-center">
-              <a href={`tel:${contact.tel}`}>
-                <PhoneIcon className="size-12" />
-              </a>
-            </button>
-          ) : null}
-          {contact.social.map((social) => (
-            <button
-              key={social.name}
-              className="size-24 border-2 border-black rounded-md flex justify-center items-center"
-            >
-              <LinkPreview url={social.url}>
-                <social.icon className="size-12" />
+        <div className="flex sm:block justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 mt-10 font-mono text-sm">
+            {contact.email ? (
+              <button className="h-24 min-w-24 w-full border-2 border-black rounded-md flex justify-center items-center">
+                <a href={`mailto:${contact.email}`}>
+                  <MailIcon className="size-12" />
+                </a>
+              </button>
+            ) : null}
+            {contact.tel ? (
+              <button className="h-24 min-w-24 w-full border-2 border-black rounded-md flex justify-center items-center">
+                <a href={`tel:${contact.tel}`}>
+                  <PhoneIcon className="size-12" />
+                </a>
+              </button>
+            ) : null}
+            {contact.social.map((social) => (
+              <button
+                key={social.name}
+                className="h-24 min-w-24 w-full border-2 border-black rounded-md"
+              >
+                <LinkPreview
+                  isStatic
+                  imageSrc={social.imageSrc}
+                  url={social.url}
+                  className="h-full w-full flex justify-center items-center"
+                >
+                  <social.icon className="size-12" />
+                </LinkPreview>
+              </button>
+            ))}
+            <button className="h-24 min-w-24 w-full text-3xl col-span-2 border-2 border-black rounded-md">
+              <LinkPreview
+                url={"/resume"}
+                className="h-full w-full flex justify-center items-center"
+              >
+                Resume
               </LinkPreview>
             </button>
-          ))}
+          </div>
         </div>
       </div>
     </div>
