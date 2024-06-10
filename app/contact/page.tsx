@@ -9,13 +9,13 @@ const contact = {
     {
       name: "GitHub",
       url: "https://github.com/thekamalkashyap",
-      imageSrc: "/github-preview.png",
+      imageSrc: "/preview/github.png",
       icon: GitHubIcon,
     },
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/thekamalkashyap",
-      imageSrc: "/linkedin-preview.png",
+      imageSrc: "/preview/linkedin.png",
       icon: LinkedinIcon,
     },
   ],
@@ -67,6 +67,8 @@ export default function Contact() {
             <button className="h-24 min-w-24 w-full text-3xl col-span-2 border-2 border-black rounded-md">
               <LinkPreview
                 url={"/resume"}
+                isStatic
+                imageSrc="/preview/resume.png"
                 className="h-full w-full flex justify-center items-center"
               >
                 Resume

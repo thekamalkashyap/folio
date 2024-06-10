@@ -3,8 +3,16 @@ import Spotlight from "@/components/spotlight";
 import LinkPreview from "@/components/linkPreview";
 
 const navigation = [
-  { name: "Projects", href: "/projects", imageSrc: "/projects-preview.png" },
-  { name: "Contact", href: "/contact", imageSrc: "/contact-preview.png" },
+  {
+    name: "Projects",
+    href: "/projects",
+    imageSrc: "/preview/projects.png",
+  },
+  {
+    name: "Contact",
+    href: "/contact",
+    imageSrc: "/preview/contact.png",
+  },
 ];
 
 export default function Home() {

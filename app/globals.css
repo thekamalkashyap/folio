@@ -14,6 +14,10 @@
   }
 }
 
+.print-force-new-page {
+  page-break-before: always;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
